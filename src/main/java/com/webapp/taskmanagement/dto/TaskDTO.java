@@ -1,5 +1,6 @@
 package com.webapp.taskmanagement.dto;
 
+import com.webapp.taskmanagement.entity.TaskEntity;
 import com.webapp.taskmanagement.enumeration.Priority;
 import com.webapp.taskmanagement.enumeration.Status;
 import jakarta.validation.constraints.NotBlank;
@@ -39,5 +40,19 @@ public class TaskDTO {
     private Status status;
 
     private Instant createdAt;
+
+    public static TaskDTO toDto(TaskEntity e) {
+        return TaskDTO.builder()
+                .id(e.getId())
+                .title(e.getTitle())
+                .notes(e.getNotes())
+                .revenue(e.getRevenue())
+                .timeTaken(e.getTimeTaken())
+                .roi(e.getRoi())
+                .priority(e.getPriority())
+                .status(e.getStatus())
+                .createdAt(e.getCreatedAt())
+                .build();
+    }
 
 }

@@ -1,7 +1,9 @@
 package com.webapp.taskmanagement.entity;
 
+import com.webapp.taskmanagement.dto.TaskDTO;
 import com.webapp.taskmanagement.enumeration.Priority;
 import com.webapp.taskmanagement.enumeration.Status;
+import com.webapp.taskmanagement.util.ROIUtils;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
@@ -53,5 +55,19 @@ public class TaskEntity {
     @PrePersist
     public void prePersist() {
         if (createdAt == null) createdAt = Instant.now();
+    }
+
+    public static TaskEntity fromDto(TaskDTO dto) {
+        TaskEntity e = TaskEntity.builder()
+                .id(dto.getId())
+                .title(dto.getTitle())
+                .notes(dto.getNotes())
+                .revenue(dto.getRevenue())
+                .timeTaken(dto.getTimeTaken())
+                .priority(dto.getPriority() == null ? Priority.MEDIUM : dto.getPriority())
+                .status(dto.getStatus() == null ? Status.TODO : dto.getStatus())
+                .build();
+        e.setRoi(ROIUtils.computeROI(e.getRevenue(), e.getTimeTaken()));
+        return e;
     }
 }
