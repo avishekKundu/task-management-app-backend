@@ -4,13 +4,7 @@ import com.webapp.taskmanagement.dto.TaskDTO;
 import com.webapp.taskmanagement.enumeration.Priority;
 import com.webapp.taskmanagement.enumeration.Status;
 import com.webapp.taskmanagement.util.ROIUtils;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
-import jakarta.persistence.Column;
-import jakarta.persistence.PrePersist;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -51,6 +45,9 @@ public class TaskEntity {
     private Status status;
 
     private Instant createdAt;
+
+    @Version
+    private Long version;
 
     @PrePersist
     public void prePersist() {

@@ -3,6 +3,7 @@ package com.webapp.taskmanagement.dto;
 import com.webapp.taskmanagement.entity.TaskEntity;
 import com.webapp.taskmanagement.enumeration.Priority;
 import com.webapp.taskmanagement.enumeration.Status;
+import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -41,6 +42,8 @@ public class TaskDTO {
 
     private Instant createdAt;
 
+    private Long version;
+
     public static TaskDTO toDto(TaskEntity e) {
         return TaskDTO.builder()
                 .id(e.getId())
@@ -52,6 +55,7 @@ public class TaskDTO {
                 .priority(e.getPriority())
                 .status(e.getStatus())
                 .createdAt(e.getCreatedAt())
+                .version(e.getVersion())
                 .build();
     }
 
