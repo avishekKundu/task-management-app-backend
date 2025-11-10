@@ -27,7 +27,9 @@ public class TaskService {
     public TaskDTO create(TaskDTO taskDTO) {
         TaskEntity taskEntity = TaskEntity.fromDto(taskDTO);
         taskEntity.setId(null);
-        taskEntity.setVersion(taskDTO.getVersion() + 1);
+        if(taskDTO.getVersion() != null) {
+            taskEntity.setVersion(taskDTO.getVersion() + 1);
+        }
         TaskEntity savedTaskEntity = taskRepository.save(taskEntity);
         return TaskDTO.toDto(savedTaskEntity);
     }
